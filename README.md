@@ -20,6 +20,8 @@ prisma/     Prisma schema used by the PostgreSQL/Prisma tasks
 | `src/ai/shared/llm.ts`       | Provider-agnostic `LLMClient` contract for the AI tasks  |
 | `src/agents/shared/tool-chat.ts` | Tool-calling model contract for the agent tasks     |
 | `src/rag/shared.ts`          | `SqlDatabase` and `Embedder` contracts for the RAG tasks |
+| `src/backend/shared.ts`      | Contracts and the chat database schema for the BACKEND tasks |
+| `LEARNING-PATH.md`           | The recommended order of the categories                 |
 | `src/generated/prisma/`      | Generated Prisma client (created by `npm install`)       |
 | `tests/support/`             | Test reporter, database helpers, PGlite, mock LLMs, fake chat model and embedder |
 
@@ -97,6 +99,8 @@ Only the PostgreSQL/Prisma tasks need this. The RAG tasks that use PostgreSQL + 
 | `npm run test:db`        | Every database task                          |
 | `npm run test:express`   | All Express tasks                            |
 | `npm run test:express:1` | EXPRESS-001 (also `:2` … `:6`)               |
+| `npm run test:backend`   | All BACKEND tasks (no database setup needed)  |
+| `npm run test:backend:1` | BACKEND-001 (also `:2` … `:25`)               |
 | `npm run dev:express:1`  | Starts EXPRESS-001 on port 3000 for manual requests (also `:2` … `:4`) |
 | `npm run test:prisma`    | All PostgreSQL/Prisma tasks                  |
 | `npm run test:prisma:1`  | PRISMA-001 (also `:2`)                       |

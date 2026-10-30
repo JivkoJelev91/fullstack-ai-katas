@@ -1,0 +1,2 @@
+# BACKEND-023: files Docker must not send into the build (one pattern per line).
+# TODO: see "2. Dockerfile.dockerignore" in task23.md

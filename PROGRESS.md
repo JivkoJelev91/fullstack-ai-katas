@@ -1,6 +1,6 @@
 # Progress
 
-**Done: 1 of 35 tasks**
+**Done: 1 of 60 tasks**
 
 Mark a task done by changing ⬜ to ✅.
 
@@ -14,6 +14,36 @@ Mark a task done by changing ⬜ to ✅.
 | ⬜ | EXPRESS-004 | Delete a Task | Level 1 | [task4.md](src/express/task4/task4.md) | `npm run test:express:4` |
 | ⬜ | EXPRESS-005 | Product Catalog Search API | Level 2 | [task5.md](src/express/task5/task5.md) | `npm run test:express:5` |
 | ⬜ | EXPRESS-006 | Team Notes API with Authentication | Level 2 | [task6.md](src/express/task6/task6.md) | `npm run test:express:6` |
+
+## Backend for AI Applications
+
+| Done | Task ID | Title | Level | Spec | Tests |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | BACKEND-001 | Validation Middleware | Level 1 | [task1.md](src/backend/task1/task1.md) | `npm run test:backend:1` |
+| ⬜ | BACKEND-002 | Centralized Error Handling | Level 1 | [task2.md](src/backend/task2/task2.md) | `npm run test:backend:2` |
+| ⬜ | BACKEND-003 | Database Migrations | Level 1–2 | [task3.md](src/backend/task3/task3.md) | `npm run test:backend:3` |
+| ⬜ | BACKEND-004 | Conversation Repository | Level 1–2 | [task4.md](src/backend/task4/task4.md) | `npm run test:backend:4` |
+| ⬜ | BACKEND-005 | Cursor Pagination | Level 2 | [task5.md](src/backend/task5/task5.md) | `npm run test:backend:5` |
+| ⬜ | BACKEND-006 | Transactions | Level 2 | [task6.md](src/backend/task6/task6.md) | `npm run test:backend:6` |
+| ⬜ | BACKEND-007 | Authentication Middleware | Level 1 | [task7.md](src/backend/task7/task7.md) | `npm run test:backend:7` |
+| ⬜ | BACKEND-008 | JSON Web Tokens (HS256) | Level 2 | [task8.md](src/backend/task8/task8.md) | `npm run test:backend:8` |
+| ⬜ | BACKEND-009 | User Isolation | Level 1 | [task9.md](src/backend/task9/task9.md) | `npm run test:backend:9` |
+| ⬜ | BACKEND-010 | API Keys | Level 2 | [task10.md](src/backend/task10/task10.md) | `npm run test:backend:10` |
+| ⬜ | BACKEND-011 | Rate Limiting | Level 1–2 | [task11.md](src/backend/task11/task11.md) | `npm run test:backend:11` |
+| ⬜ | BACKEND-012 | Chat Endpoint | Level 2 | [task12.md](src/backend/task12/task12.md) | `npm run test:backend:12` |
+| ⬜ | BACKEND-013 | Streaming Replies over SSE | Level 2 | [task13.md](src/backend/task13/task13.md) | `npm run test:backend:13` |
+| ⬜ | BACKEND-014 | Usage and Budget Tracking | Level 2 | [task14.md](src/backend/task14/task14.md) | `npm run test:backend:14` |
+| ⬜ | BACKEND-015 | Document Upload | Level 1 | [task15.md](src/backend/task15/task15.md) | `npm run test:backend:15` |
+| ⬜ | BACKEND-016 | Ingestion Pipeline | Level 2 | [task16.md](src/backend/task16/task16.md) | `npm run test:backend:16` |
+| ⬜ | BACKEND-017 | Semantic Search | Level 2 | [task17.md](src/backend/task17/task17.md) | `npm run test:backend:17` |
+| ⬜ | BACKEND-018 | Answers with Citations | Level 2 | [task18.md](src/backend/task18/task18.md) | `npm run test:backend:18` |
+| ⬜ | BACKEND-019 | Background Job Queue | Level 2 | [task19.md](src/backend/task19/task19.md) | `npm run test:backend:19` |
+| ⬜ | BACKEND-020 | Agent Runs with Human Approval | Level 2 | [task20.md](src/backend/task20/task20.md) | `npm run test:backend:20` |
+| ⬜ | BACKEND-021 | Request IDs and Structured Logging | Level 1 | [task21.md](src/backend/task21/task21.md) | `npm run test:backend:21` |
+| ⬜ | BACKEND-022 | Health Checks and Configuration | Level 1 | [task22.md](src/backend/task22/task22.md) | `npm run test:backend:22` |
+| ⬜ | BACKEND-023 | Docker Image | Level 1 | [task23.md](src/backend/task23/task23.md) | `npm run test:backend:23` |
+| ⬜ | BACKEND-024 | Capstone 1: Chat API | Level 2 | [task24.md](src/backend/task24/task24.md) | `npm run test:backend:24` |
+| ⬜ | BACKEND-025 | Capstone 2: Documents and Q&A | Level 2 | [task25.md](src/backend/task25/task25.md) | `npm run test:backend:25` |
 
 ## PostgreSQL / Prisma
 
