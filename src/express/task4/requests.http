@@ -1,0 +1,15 @@
+# EXPRESS-004 manual requests.
+# 1. Start the server: npm run dev:express:4  (starts with tasks t1, t2, t3)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+# Saving task4.ts restarts the server and brings deleted tasks back.
+
+@host = http://localhost:3000
+
+### Delete t1 (expect 204, empty body)
+DELETE {{host}}/tasks/t1
+
+### Delete t1 again (expect 404, it is gone)
+DELETE {{host}}/tasks/t1
+
+### Unknown id (expect 404)
+DELETE {{host}}/tasks/xyz

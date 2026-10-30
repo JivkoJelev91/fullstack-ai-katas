@@ -1,0 +1,138 @@
+/**
+ * EXPRESS-001: Task Tracker REST API
+ * Specification: ./task1.md (in this folder)
+ * Run the tests: npm run test:express:1
+ * Run the server: npm run dev:express:1 (see "How to check your work" in task1.md)
+ *
+ * Keep the exported names and the createApp signature unchanged; the tests depend on them.
+ */
+import express, { type Express } from "express";
+import bodyParser from "body-parser";
+import { z } from 'zod';
+import { randomUUID } from "node:crypto";
+
+// ---------------------------------------------------------------------------
+// API contract (from the specification)
+// ---------------------------------------------------------------------------
+
+export type TaskPriority = "low" | "medium" | "high";
+export type TaskStatus = "todo" | "in_progress" | "done";
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string | null;
+  priority: TaskPriority;
+  status: TaskStatus;
+  /** ISO 8601 timestamp */
+  createdAt: string;
+  /** ISO 8601 timestamp */
+  updatedAt: string;
+}
+
+export type ErrorCode = "VALIDATION_ERROR" | "NOT_FOUND";
+
+export interface ErrorBody {
+  error: {
+    code: ErrorCode;
+    message: string;
+  };
+}
+
+const TaskSchema = z.object({ 
+  title: z.string().trim().min(1).max(120),
+  description: z.string().trim().max(1000).nullable().default(null),
+  priority: z.enum(["low" , "medium", "high"]).default('medium').optional(),
+  status: z.enum(["todo" , "in_progress", "done"]).default('todo').optional(),
+});
+
+// POST: no status; description and priority get defaults
+const CreateTaskSchema = TaskSchema.omit({ status: true }).extend({
+  description: TaskSchema.shape.description.default(null),
+  priority: TaskSchema.shape.priority.default("medium"),
+});
+
+
+const UpdateTaskSchema = TaskSchema.partial();
+
+// ---------------------------------------------------------------------------
+// Application
+// ---------------------------------------------------------------------------
+
+export function createApp(): Express {
+  const app = express();
+
+  app.use(bodyParser.json());
+
+
+  // Your storage (no database): key = task id, value = the task object.
+  //   save:    tasks.set(id, task)
+  //   find:    tasks.get(id)        -> undefined if not found (return 404)
+  //   delete:  tasks.delete(id)
+  //   get all: [...tasks.values()]  -> oldest first
+  const tasks = new Map<string, Task>();
+
+  // Use these when you create or update a task:
+    const id = randomUUID();              // unique id, e.g. "3f2a9c1e-..."
+    const now = new Date().toISOString(); // e.g. "2026-03-01T10:00:00.000Z"
+
+  // TODO: "Validation" section
+
+  app.post("/tasks", (req, res) => {
+
+    if (req.body) {
+      try {
+        req.body = CreateTaskSchema.parse(req.body);
+        const title = req.body.title as string;
+        const description = req.body.description as string;
+        const priority = req.body.priority as TaskPriority;
+        const status = req.body.status;
+        const task = {
+           id,
+           title,
+           description,
+           priority,
+           status,
+           createdAt: now,
+           updatedAt: now,
+        };
+        if(task){
+          tasks.set(id, task);
+        }
+
+        return res.status(201).send(task)
+
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          return res
+            .status(400)
+            .send({ error: { code: "VALIDATION_ERROR", message: error.issues[0]?.message ?? "Invalid input" } });
+        }
+      }
+    } else {
+      return res
+        .status(404)
+        .send({ error: { code: "NOT_FOUND", message: "Task not found" } });
+    }
+  });
+
+  app.get("/tasks", (_req, _res) => {
+    throw new Error("Not implemented: GET /tasks");
+  });
+
+  app.get("/tasks/:id", (_req, _res) => {
+    throw new Error("Not implemented: GET /tasks/:id");
+  });
+
+  app.patch("/tasks/:id", (_req, _res) => {
+    throw new Error("Not implemented: PATCH /tasks/:id");
+  });
+
+  app.delete("/tasks/:id", (_req, _res) => {
+    throw new Error("Not implemented: DELETE /tasks/:id");
+  });
+
+  // TODO: "Errors" section
+
+  return app;
+}

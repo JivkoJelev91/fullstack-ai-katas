@@ -1,0 +1,88 @@
+// Shared schema for the PostgreSQL/Prisma tasks.
+// Each task uses its own set of models. Do not rename models or fields:
+// the automated tests depend on this schema.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// PRISMA-001: Library catalog
+// ---------------------------------------------------------------------------
+
+model Author {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  books     Book[]
+}
+
+model Book {
+  id            Int      @id @default(autoincrement())
+  title         String
+  isbn          String   @unique
+  publishedYear Int
+  authorId      Int
+  author        Author   @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  createdAt     DateTime @default(now())
+
+  @@index([authorId])
+}
+
+// ---------------------------------------------------------------------------
+// PRISMA-002: Order placement with inventory
+// ---------------------------------------------------------------------------
+
+model Customer {
+  id     Int     @id @default(autoincrement())
+  email  String  @unique
+  name   String
+  orders Order[]
+}
+
+model Product {
+  id         Int         @id @default(autoincrement())
+  sku        String      @unique
+  name       String
+  priceCents Int
+  stock      Int
+  active     Boolean     @default(true)
+  orderItems OrderItem[]
+}
+
+enum OrderStatus {
+  PLACED
+  CANCELLED
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  customerId  Int
+  customer    Customer    @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  status      OrderStatus @default(PLACED)
+  totalCents  Int
+  createdAt   DateTime    @default(now())
+  cancelledAt DateTime?
+  items       OrderItem[]
+
+  @@index([customerId])
+}
+
+model OrderItem {
+  id             Int     @id @default(autoincrement())
+  orderId        Int
+  order          Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId      Int
+  product        Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  quantity       Int
+  unitPriceCents Int
+
+  @@unique([orderId, productId])
+  @@index([productId])
+}

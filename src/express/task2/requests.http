@@ -1,0 +1,23 @@
+# EXPRESS-002 manual requests.
+# 1. Start the server: npm run dev:express:2  (starts with tasks t1, t2, t3)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### All tasks (expect 200, t1 t2 t3)
+GET {{host}}/tasks
+
+### Only "todo" tasks (expect 200, t1 t3)
+GET {{host}}/tasks?status=todo
+
+### No matches (expect 200, empty data)
+GET {{host}}/tasks?status=in_progress
+
+### Invalid status (expect 400)
+GET {{host}}/tasks?status=finished
+
+### One task (expect 200)
+GET {{host}}/tasks/t2
+
+### Unknown id (expect 404)
+GET {{host}}/tasks/xyz

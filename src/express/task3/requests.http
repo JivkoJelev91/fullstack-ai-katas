@@ -1,0 +1,35 @@
+# EXPRESS-003 manual requests.
+# 1. Start the server: npm run dev:express:3  (starts with tasks t1, t2, t3)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### Change one field (expect 200, only status changes)
+PATCH {{host}}/tasks/t1
+Content-Type: application/json
+
+{ "status": "done" }
+
+### Change several fields (expect 200)
+PATCH {{host}}/tasks/t1
+Content-Type: application/json
+
+{ "title": "Write better notes", "priority": "low" }
+
+### Unknown id (expect 404)
+PATCH {{host}}/tasks/xyz
+Content-Type: application/json
+
+{ "status": "done" }
+
+### Invalid status (expect 400)
+PATCH {{host}}/tasks/t1
+Content-Type: application/json
+
+{ "status": "finished" }
+
+### Empty title (expect 400)
+PATCH {{host}}/tasks/t1
+Content-Type: application/json
+
+{ "title": "" }

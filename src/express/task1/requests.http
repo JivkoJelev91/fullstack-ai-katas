@@ -1,0 +1,35 @@
+# EXPRESS-001 manual requests.
+# 1. Start the server: npm run dev:express:1
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### Create a task with a priority (expect 201)
+POST {{host}}/tasks
+Content-Type: application/json
+
+{ "title": "Write notes", "priority": "high" }
+
+### Create a task without a priority (expect 201, priority "medium")
+POST {{host}}/tasks
+Content-Type: application/json
+
+{ "title": "Buy milk" }
+
+### Client tries to set id and status (expect 201, both ignored)
+POST {{host}}/tasks
+Content-Type: application/json
+
+{ "title": "Sneaky", "id": "my-id", "status": "done" }
+
+### Missing title (expect 400)
+POST {{host}}/tasks
+Content-Type: application/json
+
+{}
+
+### Invalid priority (expect 400)
+POST {{host}}/tasks
+Content-Type: application/json
+
+{ "title": "X", "priority": "urgent" }
