@@ -27,7 +27,7 @@ The examples below use an app started with these three tasks (other fields short
 
 ## 1. GET /tasks
 
-**REQUIREMENT:** Return all tasks, in the order they were added, inside `{ "data": [...] }`. With `?status=`, return only the tasks with that status. A status that is not `todo`, `in_progress` or `done` returns `400` with `{ "error": "<any message>" }`.
+**REQUIREMENT:** Return all tasks, in the order they were added, inside `{ "data": [...] }`. Each item is the full Task object with all six fields, exactly as stored (the `…` in the examples stands for the fields left out for brevity). If the request has a `status` query parameter (for example `?status=todo`), return only the tasks whose `status` equals it. Any other value, including an empty one (`?status=`), returns `400` with `{ "error": "<any message>" }`.
 
 **INPUT:**
 
@@ -62,6 +62,7 @@ GET /tasks?status=todo
 | `GET /tasks?status=in_progress` | `200` `{ "data": [] }` |
 | `GET /tasks` on an app with no tasks | `200` `{ "data": [] }` |
 | `GET /tasks?status=finished` | `400` `{ "error": "Invalid status" }` |
+| `GET /tasks?status=` | `400` `{ "error": "Invalid status" }` |
 
 ## 2. GET /tasks/:id
 

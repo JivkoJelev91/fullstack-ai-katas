@@ -9,8 +9,8 @@ Mark a task done by changing ⬜ to ✅.
 | Done | Task ID | Title | Level | Spec | Tests |
 | --- | --- | --- | --- | --- | --- |
 | ✅ | EXPRESS-001 | Create a Task | Level 1 | [task1.md](src/express/task1/task1.md) | `npm run test:express:1` |
-| ⬜ | EXPRESS-002 | Read Tasks | Level 1 | [task2.md](src/express/task2/task2.md) | `npm run test:express:2` |
-| ⬜ | EXPRESS-003 | Update a Task | Level 1 | [task3.md](src/express/task3/task3.md) | `npm run test:express:3` |
+| ✅ | EXPRESS-002 | Read Tasks | Level 1 | [task2.md](src/express/task2/task2.md) | `npm run test:express:2` |
+| ✅ | EXPRESS-003 | Update a Task | Level 1 | [task3.md](src/express/task3/task3.md) | `npm run test:express:3` |
 | ⬜ | EXPRESS-004 | Delete a Task | Level 1 | [task4.md](src/express/task4/task4.md) | `npm run test:express:4` |
 | ⬜ | EXPRESS-005 | Product Catalog Search API | Level 2 | [task5.md](src/express/task5/task5.md) | `npm run test:express:5` |
 | ⬜ | EXPRESS-006 | Team Notes API with Authentication | Level 2 | [task6.md](src/express/task6/task6.md) | `npm run test:express:6` |

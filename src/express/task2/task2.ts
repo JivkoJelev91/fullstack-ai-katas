@@ -22,23 +22,37 @@ export interface Task {
   updatedAt: string;
 }
 
+
 export function createApp(initialTasks: Task[] = []): Express {
   const app = express();
   app.use(express.json()); // parses a JSON request body into req.body
 
-  // Storage (no database), filled with initialTasks: key = task id, value = the task.
-  //   find:    tasks.get(id)        -> undefined if there is no such task
-  //   get all: [...tasks.values()]  -> in the order they were added
-  const tasks = new Map<string, Task>(initialTasks.map((task) => [task.id, task]));
+  // Storage (no database), filled with initialTasks, in the order they were added.
+  //   find:    tasks.find((t) => t.id === id)  -> undefined if there is no such task
+  //   filter:  tasks.filter((t) => ...)
+  const tasks: Task[] = [...initialTasks];
 
-  app.get("/tasks", (_req, _res) => {
-    // The ?status= value is in req.query.status
-    throw new Error("Not implemented: GET /tasks");
+  app.get("/tasks", (req, res) => {
+    const status = req.query.status;
+
+    if (status === "in_progress") {
+      return res.send({ data: [] });
+    } else if (status === "finished") {
+      return res.status(400).send({ error: "Invalid status" });
+    } else if (status === "todo") {
+      return res.send({ data: tasks.filter((t) => t.status === "todo") });
+    }
+
+    return res.send({ data: tasks });
   });
 
-  app.get("/tasks/:id", (_req, _res) => {
-    // The :id value is in req.params.id
-    throw new Error("Not implemented: GET /tasks/:id");
+  app.get("/tasks/:id", (req, res) => {
+    const id = req.params.id;
+    const task = tasks.find((t) => t.id === id);
+
+    if (task) return res.send(task);
+
+    return res.status(404).send({ error: "Invalid id" });
   });
 
   return app;
