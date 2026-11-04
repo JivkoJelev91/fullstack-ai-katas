@@ -25,9 +25,30 @@ export function createApp(initialProducts: Product[] = []): Express {
   //   filter: products.filter((p) => ...)
   const products: Product[] = [...initialProducts];
 
-  app.get("/products", (_req, _res) => {
+  app.get("/products", (req, res) => {
     // The query parameters are in req.query, e.g. req.query.category (a string or undefined)
-    throw new Error("Not implemented: GET /products");
+    const category = req.query.category;
+    const inStock = req.query.inStock;
+    
+    let filteredProducts = category ? products.filter(
+      (prod) => prod.category.toString().toLowerCase() ===
+      category?.toString().toLowerCase()
+    ) : products;
+
+    if (inStock !== undefined && inStock !== 'true' && inStock !== 'false'){
+      res.status(400).send({ error: "inStock must be true or false" });
+    }
+
+    if(inStock === 'true' ){
+      filteredProducts = filteredProducts.filter(p => p.inStock === true)
+    }
+    if(inStock === 'false' ){
+      filteredProducts = filteredProducts.filter(p => p.inStock === false)
+    }
+
+    return res.send({
+      data: filteredProducts
+    })
   });
 
   return app;
