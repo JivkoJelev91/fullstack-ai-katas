@@ -1,0 +1,23 @@
+# EXPRESS-008 manual requests.
+# 1. Start the server: npm run dev:express:8  (starts with products p1 … p8)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### First page, 5 per page (expect 200, p1 … p5, totalPages 2)
+GET {{host}}/products
+
+### Last page (expect 200, p6 p7 p8)
+GET {{host}}/products?page=2
+
+### Custom page size (expect 200, p4 p5 p6, totalPages 3)
+GET {{host}}/products?page=2&pageSize=3
+
+### After the last page (expect 200, empty data)
+GET {{host}}/products?page=3
+
+### Invalid page (expect 400)
+GET {{host}}/products?page=0
+
+### Page size too big (expect 400)
+GET {{host}}/products?pageSize=51

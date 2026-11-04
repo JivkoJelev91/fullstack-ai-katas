@@ -12,8 +12,16 @@ Workflow for every task: read the spec → open the starter file → implement �
 | EXPRESS-002 | Read Tasks | Level 1 | TypeScript, Express 5 | EXPRESS-001 | [task2.md](src/express/task2/task2.md) | [src/express/task2/task2.ts](src/express/task2/task2.ts) | `npm run test:express:2` |
 | EXPRESS-003 | Update a Task | Level 1 | TypeScript, Express 5 | EXPRESS-002 | [task3.md](src/express/task3/task3.md) | [src/express/task3/task3.ts](src/express/task3/task3.ts) | `npm run test:express:3` |
 | EXPRESS-004 | Delete a Task | Level 1 | TypeScript, Express 5 | EXPRESS-003 | [task4.md](src/express/task4/task4.md) | [src/express/task4/task4.ts](src/express/task4/task4.ts) | `npm run test:express:4` |
-| EXPRESS-005 | Product Catalog Search API | Level 2 | TypeScript, Express 5 | EXPRESS-004 | [task5.md](src/express/task5/task5.md) | [src/express/task5/task5.ts](src/express/task5/task5.ts) | `npm run test:express:5` |
-| EXPRESS-006 | Team Notes API with Authentication | Level 2 | TypeScript, Express 5 | EXPRESS-004 | [task6.md](src/express/task6/task6.md) | [src/express/task6/task6.ts](src/express/task6/task6.ts) | `npm run test:express:6` |
+| EXPRESS-005 | Filter Products | Level 1 | TypeScript, Express 5 | EXPRESS-004 | [task5.md](src/express/task5/task5.md) | [src/express/task5/task5.ts](src/express/task5/task5.ts) | `npm run test:express:5` |
+| EXPRESS-006 | Search Products | Level 1 | TypeScript, Express 5 | EXPRESS-005 | [task6.md](src/express/task6/task6.md) | [src/express/task6/task6.ts](src/express/task6/task6.ts) | `npm run test:express:6` |
+| EXPRESS-007 | Sort Products | Level 1 | TypeScript, Express 5 | EXPRESS-006 | [task7.md](src/express/task7/task7.md) | [src/express/task7/task7.ts](src/express/task7/task7.ts) | `npm run test:express:7` |
+| EXPRESS-008 | Paginate Products | Level 1 | TypeScript, Express 5 | EXPRESS-007 | [task8.md](src/express/task8/task8.md) | [src/express/task8/task8.ts](src/express/task8/task8.ts) | `npm run test:express:8` |
+| EXPRESS-009 | Products from an Async Catalog | Level 1 | TypeScript, Express 5 | EXPRESS-008 | [task9.md](src/express/task9/task9.md) | [src/express/task9/task9.ts](src/express/task9/task9.ts) | `npm run test:express:9` |
+| EXPRESS-010 | Login with a Bearer Token | Level 1 | TypeScript, Express 5 | EXPRESS-009 | [task10.md](src/express/task10/task10.md) | [src/express/task10/task10.ts](src/express/task10/task10.ts) | `npm run test:express:10` |
+| EXPRESS-011 | Create and List My Notes | Level 1 | TypeScript, Express 5 | EXPRESS-010 | [task11.md](src/express/task11/task11.md) | [src/express/task11/task11.ts](src/express/task11/task11.ts) | `npm run test:express:11` |
+| EXPRESS-012 | Who Can See a Note | Level 1 | TypeScript, Express 5 | EXPRESS-011 | [task12.md](src/express/task12/task12.md) | [src/express/task12/task12.ts](src/express/task12/task12.ts) | `npm run test:express:12` |
+| EXPRESS-013 | Edit and Delete Notes | Level 2 | TypeScript, Express 5 | EXPRESS-012 | [task13.md](src/express/task13/task13.md) | [src/express/task13/task13.ts](src/express/task13/task13.ts) | `npm run test:express:13` |
+| EXPRESS-014 | Admin Stats | Level 1 | TypeScript, Express 5 | EXPRESS-013 | [task14.md](src/express/task14/task14.md) | [src/express/task14/task14.ts](src/express/task14/task14.ts) | `npm run test:express:14` |
 
 ## Backend for AI Applications
 
@@ -89,7 +97,7 @@ Small steps that build one complete AI assistant backend: API, database, securit
 | Task ID | Title | Difficulty | Technologies | Prerequisites | Spec | Starter file (edit this) | Test command |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | AGENT-001 | Tool-Calling Agent Loop | Level 2 | Tool calling, Zod, JSON Schema, concurrency | AI-001, AI-002 | [task1.md](src/agents/task1/task1.md) | [src/agents/task1/task1.ts](src/agents/task1/task1.ts) | `npm run test:agents:1` |
-| AGENT-002 | Guarded Tool Execution: Permissions, Approvals, Audit | Level 2–3 | Authorization, approval workflows, audit logs | AGENT-001, EXPRESS-006 | [task2.md](src/agents/task2/task2.md) | [src/agents/task2/task2.ts](src/agents/task2/task2.ts) | `npm run test:agents:2` |
+| AGENT-002 | Guarded Tool Execution: Permissions, Approvals, Audit | Level 2–3 | Authorization, approval workflows, audit logs | AGENT-001, EXPRESS-013 | [task2.md](src/agents/task2/task2.md) | [src/agents/task2/task2.ts](src/agents/task2/task2.ts) | `npm run test:agents:2` |
 | AGENT-003 | Plan-and-Execute Agent with Replanning and Memory | Level 3 | LangGraph.js orchestration, planning, memory | AGENT-001, LC-003 | [task3.md](src/agents/task3/task3.md) | [src/agents/task3/task3.ts](src/agents/task3/task3.ts) | `npm run test:agents:3` |
 
 ## AI Production Engineering

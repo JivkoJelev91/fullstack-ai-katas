@@ -26,14 +26,23 @@ export function createApp(initialTasks: Task[] = []): Express {
   const app = express();
   app.use(express.json()); // parses a JSON request body into req.body
 
-  // Storage (no database), filled with initialTasks: key = task id, value = the task.
-  //   check:  tasks.has(id)     -> true or false
-  //   delete: tasks.delete(id)  -> true if it was there, false if not
-  const tasks = new Map<string, Task>(initialTasks.map((task) => [task.id, task]));
+  let tasks: Task[] = [...initialTasks];
 
-  app.delete("/tasks/:id", (_req, _res) => {
+  app.delete("/tasks/:id", (req, res) => {
     // The :id value is in req.params.id
-    throw new Error("Not implemented: DELETE /tasks/:id");
+    const id = req.params.id;
+
+    if(!id) return res.status(404).send({ "error": "task was deleted" });
+
+    const task = tasks.find(t => t.id === id);
+
+    if(task){
+      tasks = tasks.filter(t => t.id != id);
+      return res.status(204).send({});
+    }else{
+      return res.status(404).send({ "error": "task not found" })
+    }
+
   });
 
   return app;

@@ -54,7 +54,7 @@ describe("EXPRESS-003", () => {
       await request(app).patch("/tasks/t1").send({ title: "Renamed" });
       const res = await request(app).patch("/tasks/t1").send({ status: "done" });
       expectStatus(res, 200, "A valid update must return 200.");
-      expect(res.body.title, "The title from the first update must be saved in the tasks Map").toBe("Renamed");
+      expect(res.body.title, "The title from the first update must be saved in the tasks array").toBe("Renamed");
     });
 
     it("returns 404 when no task has that id", async () => {

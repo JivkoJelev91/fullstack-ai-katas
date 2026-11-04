@@ -1,0 +1,23 @@
+# EXPRESS-007 manual requests.
+# 1. Start the server: npm run dev:express:7  (starts with products p1 … p8)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### No sort (expect 200, p1 … p8)
+GET {{host}}/products
+
+### Cheapest first (expect 200, p4 p7 p5 p3 p6 p2 p1 p8)
+GET {{host}}/products?sort=price
+
+### Most expensive first (expect 200, p8 p1 p2 p3 p6 p5 p7 p4)
+GET {{host}}/products?sort=-price
+
+### Best rated first (expect 200, p8 p1 p4 p5 p6 p2 p3 p7)
+GET {{host}}/products?sort=-rating
+
+### By name A-Z (expect 200, p6 p5 p3 p2 p8 p1 p7 p4)
+GET {{host}}/products?sort=name
+
+### Invalid sort (expect 400)
+GET {{host}}/products?sort=popularity

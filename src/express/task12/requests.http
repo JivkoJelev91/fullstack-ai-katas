@@ -1,0 +1,33 @@
+# EXPRESS-012 manual requests.
+# 1. Start the server: npm run dev:express:12  (starts with notes n1 … n4)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### Alice's view (expect 200, n1 n2 n4)
+GET {{host}}/notes
+Authorization: Bearer token-alice
+
+### Bob's view (expect 200, n2 n3 n4)
+GET {{host}}/notes
+Authorization: Bearer token-bob
+
+### Admin's view (expect 200, n1 n2 n3 n4)
+GET {{host}}/notes
+Authorization: Bearer token-root
+
+### Bob reads Alice's team note (expect 200)
+GET {{host}}/notes/n2
+Authorization: Bearer token-bob
+
+### Bob reads Alice's private note (expect 404)
+GET {{host}}/notes/n1
+Authorization: Bearer token-bob
+
+### Admin reads Alice's private note (expect 200)
+GET {{host}}/notes/n1
+Authorization: Bearer token-root
+
+### Unknown id (expect 404)
+GET {{host}}/notes/xyz
+Authorization: Bearer token-alice

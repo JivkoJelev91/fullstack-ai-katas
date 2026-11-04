@@ -1,0 +1,22 @@
+# EXPRESS-009 manual requests.
+# 1. Start the server: npm run dev:express:9
+#    port 3000: working catalog (p1 … p8), port 3001: catalog that always throws
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@ok = http://localhost:3000
+@broken = http://localhost:3001
+
+### All products (expect 200, p1 … p8)
+GET {{ok}}/products
+
+### One product (expect 200)
+GET {{ok}}/products/p5
+
+### Unknown id (expect 404)
+GET {{ok}}/products/p99
+
+### Catalog down (expect 500 { "error": "Something went wrong" }, no "products-db" in the body)
+GET {{broken}}/products
+
+### Catalog down, one product (expect 500)
+GET {{broken}}/products/p5

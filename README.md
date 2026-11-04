@@ -98,10 +98,10 @@ Only the PostgreSQL/Prisma tasks need this. The RAG tasks that use PostgreSQL + 
 | `npm run test:unit`      | Every task that does not need a database     |
 | `npm run test:db`        | Every database task                          |
 | `npm run test:express`   | All Express tasks                            |
-| `npm run test:express:1` | EXPRESS-001 (also `:2` … `:6`)               |
+| `npm run test:express:1` | EXPRESS-001 (also `:2` … `:14`)              |
 | `npm run test:backend`   | All BACKEND tasks (no database setup needed)  |
 | `npm run test:backend:1` | BACKEND-001 (also `:2` … `:25`)               |
-| `npm run dev:express:1`  | Starts EXPRESS-001 on port 3000 for manual requests (also `:2` … `:4`) |
+| `npm run dev:express:1`  | Starts EXPRESS-001 on port 3000 for manual requests (also `:2` … `:14`) |
 | `npm run test:prisma`    | All PostgreSQL/Prisma tasks                  |
 | `npm run test:prisma:1`  | PRISMA-001 (also `:2`)                       |
 | `npm run test:ai`        | All LLM API integration tasks                |

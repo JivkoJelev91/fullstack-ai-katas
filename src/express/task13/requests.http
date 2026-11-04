@@ -1,0 +1,53 @@
+# EXPRESS-013 manual requests. Send them from top to bottom.
+# 1. Start the server: npm run dev:express:13  (starts with notes n1 … n4)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+# Saving task13.ts restarts the server and brings the notes back.
+
+@host = http://localhost:3000
+
+### Bob edits Alice's private note, he can't see it (expect 404)
+PATCH {{host}}/notes/n1
+Authorization: Bearer token-bob
+Content-Type: application/json
+
+{ "title": "Hacked" }
+
+### Bob edits Alice's team note, he can see it but it is not his (expect 403)
+PATCH {{host}}/notes/n2
+Authorization: Bearer token-bob
+Content-Type: application/json
+
+{ "title": "Hacked" }
+
+### Invalid title from the owner (expect 400)
+PATCH {{host}}/notes/n2
+Authorization: Bearer token-alice
+Content-Type: application/json
+
+{ "title": "" }
+
+### Owner changes visibility, ownerId is ignored (expect 200, ownerId still "u-alice")
+PATCH {{host}}/notes/n1
+Authorization: Bearer token-alice
+Content-Type: application/json
+
+{ "visibility": "team", "ownerId": "u-bob" }
+
+### Admin edits Bob's private note (expect 200)
+PATCH {{host}}/notes/n3
+Authorization: Bearer token-root
+Content-Type: application/json
+
+{ "title": "Edited by admin" }
+
+### Bob deletes Alice's team note (expect 403)
+DELETE {{host}}/notes/n2
+Authorization: Bearer token-bob
+
+### Owner deletes own note (expect 204)
+DELETE {{host}}/notes/n4
+Authorization: Bearer token-bob
+
+### Deleted note is gone (expect 404)
+DELETE {{host}}/notes/n4
+Authorization: Bearer token-bob

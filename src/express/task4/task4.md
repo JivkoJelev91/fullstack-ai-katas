@@ -4,7 +4,7 @@
 
 Build one endpoint: `DELETE /tasks/:id` removes a task.
 
-`createApp(initialTasks)` receives the tasks the app starts with. The starter already puts them into the `tasks` Map. You write the handler.
+`createApp(initialTasks)` receives the tasks the app starts with. The starter already puts them into the `tasks` array. You write the handler.
 
 The examples use an app started with tasks `t1` and `t2`.
 

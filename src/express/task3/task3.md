@@ -4,7 +4,7 @@
 
 Build one endpoint: `PATCH /tasks/:id` changes some fields of a task and returns the updated task.
 
-`createApp(initialTasks)` receives the tasks the app starts with. The starter already puts them into the `tasks` Map. You write the handler.
+`createApp(initialTasks)` receives the tasks the app starts with. The starter already puts them into the `tasks` array. You write the handler.
 
 ## The Task object
 

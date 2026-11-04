@@ -4,7 +4,7 @@
 
 Build two endpoints: `GET /tasks` returns all tasks, and `GET /tasks/:id` returns one task.
 
-`createApp(initialTasks)` receives the tasks the app starts with. The starter already puts them into the `tasks` Map. You write the handlers.
+`createApp(initialTasks)` receives the tasks the app starts with. The starter already puts them into the `tasks` array. You write the handlers.
 
 ## The Task object
 

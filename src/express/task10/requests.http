@@ -1,0 +1,32 @@
+# EXPRESS-010 manual requests.
+# 1. Start the server: npm run dev:express:10
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+# The server terminal prints every verify(...) call.
+
+@host = http://localhost:3000
+
+### Health, no token needed (expect 200 { "status": "ok" })
+GET {{host}}/health
+
+### Logged in as Alice (expect 200 { "id": "u-alice", "role": "member" })
+GET {{host}}/me
+Authorization: Bearer token-alice
+
+### Logged in as admin (expect 200 { "id": "u-root", "role": "admin" })
+GET {{host}}/me
+Authorization: Bearer token-root
+
+### No header (expect 401, verify is not called)
+GET {{host}}/me
+
+### Wrong format (expect 401, verify is not called)
+GET {{host}}/me
+Authorization: Basic abc
+
+### Unknown token (expect 401)
+GET {{host}}/me
+Authorization: Bearer expired
+
+### Login service down (expect 503, no "login-service" in the body)
+GET {{host}}/me
+Authorization: Bearer token-down

@@ -1,0 +1,23 @@
+# EXPRESS-006 manual requests.
+# 1. Start the server: npm run dev:express:6  (starts with products p1 … p8)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### Search name or tags (expect 200, p5 p6 p8)
+GET {{host}}/products?q=camp
+
+### Search ignores case and spaces (expect 200, p1 p2)
+GET {{host}}/products?q=%20%20SHOES%20%20
+
+### Price range (expect 200, p3 p6)
+GET {{host}}/products?minPrice=4000&maxPrice=9000
+
+### Search + price (expect 200, p5 p6)
+GET {{host}}/products?q=camp&maxPrice=9000
+
+### Invalid price (expect 400)
+GET {{host}}/products?minPrice=-1
+
+### minPrice bigger than maxPrice (expect 400)
+GET {{host}}/products?minPrice=5000&maxPrice=1000

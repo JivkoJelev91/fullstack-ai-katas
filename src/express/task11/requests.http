@@ -1,0 +1,45 @@
+# EXPRESS-011 manual requests.
+# 1. Start the server: npm run dev:express:11  (starts with no notes)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+# Saving task11.ts restarts the server and deletes the notes.
+
+@host = http://localhost:3000
+
+### Alice creates a note; ownerId from the body is ignored (expect 201, ownerId "u-alice", title trimmed)
+POST {{host}}/notes
+Authorization: Bearer token-alice
+Content-Type: application/json
+
+{ "title": "  Shopping list  ", "body": "Milk", "ownerId": "u-bob" }
+
+### Alice creates a team note (expect 201, visibility "team")
+POST {{host}}/notes
+Authorization: Bearer token-alice
+Content-Type: application/json
+
+{ "title": "Team plan", "body": "", "visibility": "team" }
+
+### Alice's notes (expect 200, both notes)
+GET {{host}}/notes
+Authorization: Bearer token-alice
+
+### Bob's notes (expect 200, empty data: Alice's notes are not his)
+GET {{host}}/notes
+Authorization: Bearer token-bob
+
+### Empty title (expect 400)
+POST {{host}}/notes
+Authorization: Bearer token-alice
+Content-Type: application/json
+
+{ "title": "   ", "body": "x" }
+
+### Invalid visibility (expect 400)
+POST {{host}}/notes
+Authorization: Bearer token-alice
+Content-Type: application/json
+
+{ "title": "Plan", "body": "x", "visibility": "public" }
+
+### No token (expect 401, already handled by the starter)
+GET {{host}}/notes

@@ -1,0 +1,23 @@
+# EXPRESS-005 manual requests.
+# 1. Start the server: npm run dev:express:5  (starts with products p1 … p8)
+# 2. Click "Send Request" above a request (VS Code extension "REST Client").
+
+@host = http://localhost:3000
+
+### All products (expect 200, p1 … p8)
+GET {{host}}/products
+
+### One category, any case (expect 200, p5 p6 p7 p8)
+GET {{host}}/products?category=GEAR
+
+### Only products in stock (expect 200, p1 p3 p4 p5 p7 p8)
+GET {{host}}/products?inStock=true
+
+### Both filters (expect 200, p5 p7 p8)
+GET {{host}}/products?category=gear&inStock=true
+
+### No matches (expect 200, empty data)
+GET {{host}}/products?category=toys
+
+### Invalid inStock (expect 400)
+GET {{host}}/products?inStock=yes
