@@ -26,9 +26,46 @@ export function createApp(initialProducts: Product[] = []): Express {
   //   filter: products.filter((p) => ...)
   const products: Product[] = [...initialProducts];
 
-  app.get("/products", (_req, _res) => {
-    // The query parameters are in req.query: q, minPrice, maxPrice (strings or undefined)
-    throw new Error("Not implemented: GET /products");
+  // Parses an optional price query param.
+  // Returns undefined (param missing), a number, or null (invalid).
+  const parsePrice = (value: unknown): number | undefined | null => {
+    if (value === undefined) return undefined;
+    if (typeof value !== "string" || value.trim() === "") return null;
+    const n = Number(value);
+    return Number.isInteger(n) && n >= 0 ? n : null;
+  };
+
+  app.get("/products", (req, res) => {
+    // 1) Read + validate all params first
+    const minPrice = parsePrice(req.query.minPrice);
+    const maxPrice = parsePrice(req.query.maxPrice);
+
+    if (minPrice === null) {
+      return res.status(400).json({ error: "minPrice must be a whole number >= 0" });
+    }
+    if (maxPrice === null) {
+      return res.status(400).json({ error: "maxPrice must be a whole number >= 0" });
+    }
+    if (minPrice !== undefined && maxPrice !== undefined && minPrice > maxPrice) {
+      return res.status(400).json({ error: "minPrice must not be bigger than maxPrice" });
+    }
+
+    const q = typeof req.query.q === "string" ? req.query.q.trim().toLowerCase() : "";
+
+    // 2) One filter pass: every active criterion must match (AND).
+    //    A missing criterion simply doesn't reject anything.
+    const data = products.filter((p) => {
+      if (q) {
+        const inName = p.name.toLowerCase().includes(q);
+        const inTags = p.tags.some((t) => t.toLowerCase().includes(q));
+        if (!inName && !inTags) return false;
+      }
+      if (minPrice !== undefined && p.priceCents < minPrice) return false;
+      if (maxPrice !== undefined && p.priceCents > maxPrice) return false;
+      return true;
+    });
+
+    return res.status(200).json({ data });
   });
 
   return app;
