@@ -13,8 +13,8 @@ Mark a task done by changing ⬜ to ✅.
 | ✅ | EXPRESS-003 | Update a Task | Level 1 | [task3.md](src/express/task3/task3.md) | `npm run test:express:3` |
 | ✅ | EXPRESS-004 | Delete a Task | Level 1 | [task4.md](src/express/task4/task4.md) | `npm run test:express:4` |
 | ✅ | EXPRESS-005 | Filter Products | Level 1 | [task5.md](src/express/task5/task5.md) | `npm run test:express:5` |
-| ⬜ | EXPRESS-006 | Search Products | Level 1 | [task6.md](src/express/task6/task6.md) | `npm run test:express:6` |
-| ⬜ | EXPRESS-007 | Sort Products | Level 1 | [task7.md](src/express/task7/task7.md) | `npm run test:express:7` |
+| ✅ | EXPRESS-006 | Search Products | Level 1 | [task6.md](src/express/task6/task6.md) | `npm run test:express:6` |
+| ✅ | EXPRESS-007 | Sort Products | Level 1 | [task7.md](src/express/task7/task7.md) | `npm run test:express:7` |
 | ⬜ | EXPRESS-008 | Paginate Products | Level 1 | [task8.md](src/express/task8/task8.md) | `npm run test:express:8` |
 | ⬜ | EXPRESS-009 | Products from an Async Catalog | Level 1 | [task9.md](src/express/task9/task9.md) | `npm run test:express:9` |
 | ⬜ | EXPRESS-010 | Login with a Bearer Token | Level 1 | [task10.md](src/express/task10/task10.md) | `npm run test:express:10` |

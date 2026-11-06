@@ -27,9 +27,47 @@ export function createApp(initialProducts: Product[] = []): Express {
   //     the compare function returns a negative number if a comes first, positive if b comes first, 0 if equal
   const products: Product[] = [...initialProducts];
 
-  app.get("/products", (_req, _res) => {
-    // The sort value is in req.query.sort (a string or undefined)
-    throw new Error("Not implemented: GET /products");
+  app.get("/products", (req, res) => {
+    const sort = req.query.sort;
+
+    if (sort === "price") {
+      const sortedProducts = products.toSorted(
+        (a, b) => a.priceCents - b.priceCents,
+      );
+      return res.send({ data: sortedProducts });
+    }
+    if (sort === "-price") {
+      const sortedProducts = products.toSorted(
+        (a, b) => b.priceCents - a.priceCents,
+      );
+      return res.send({ data: sortedProducts });
+    }
+    if (sort === "rating") {
+      const sortedProducts = products.toSorted((a, b) => a.rating - b.rating);
+      return res.send({ data: sortedProducts });
+    }
+    if (sort === "-rating") {
+      const sortedProducts = products.toSorted((a, b) => b.rating - a.rating);
+      return res.send({ data: sortedProducts });
+    }
+    if (sort === "name") {
+      const sortedProducts = products.toSorted((a, b) =>
+        a.name.localeCompare(b.name),
+      );
+      return res.send({ data: sortedProducts });
+    }
+    if (sort === "-name") {
+      const sortedProducts = products.toSorted((a, b) =>
+        b.name.localeCompare(a.name),
+      );
+      return res.send({ data: sortedProducts });
+    }
+
+    if (sort === undefined) {
+      return res.send({ data: products });
+    }
+
+    return res.status(400).send({ error: "Invalid sort" });
   });
 
   return app;
