@@ -6,7 +6,7 @@
  *
  * Keep the exported names and the createApp signature unchanged; the tests depend on them.
  */
-import express, { type Express } from "express";
+import express, { NextFunction, type Express, type Request, type Response } from "express";
 
 export type Role = "member" | "admin";
 
@@ -27,14 +27,35 @@ export function createApp(deps: { tokens: TokenVerifier }): Express {
   //   const requireLogin = async (req: Request, res: Response, next: NextFunction) => { ... };
   // and use it on a route: app.get("/me", requireLogin, (req, res) => { ... })
 
-  app.get("/health", (_req, _res) => {
-    throw new Error("Not implemented: GET /health");
+  const requireLogin = async (req: Request, res: Response, next: NextFunction) => {
+    // Read the "Authorization" header the client sent (undefined if it wasn't sent).
+    const header = req.headers.authorization;
+
+    // Reject if there's no header, or it isn't the form "Bearer <token>".
+    if (!header || !header.startsWith("Bearer ")) {
+      return res.status(401).send({ error: "Missing token" });
+    }
+    try {
+      const token = header.split(" ")[1];
+      const user = await deps.tokens.verify(token);
+
+      if (!user) res.status(401).send({ error: "Missing token" });
+      res.send(user);
+    } catch {
+      res.status(503).send({ error: "Try again later" });
+    }
+
+    next();
+  };
+
+  app.get("/health", (_req, res) => {
+    return res.send({ "status": "ok" });
   });
 
-  app.get("/me", (_req, _res) => {
-    // After the middleware runs, the user is in res.locals.user
-    throw new Error("Not implemented: GET /me");
+  app.get("/me", requireLogin, (_Sreq, res) => {
+    return res.send(res.locals.user);
   });
+
 
   return app;
 }
