@@ -36,7 +36,7 @@ export function createApp(deps: { tokens: TokenVerifier }): Express {
       return res.status(401).send({ error: "Missing token" });
     }
     try {
-      const token = header.split(" ")[1];
+      const token = header.slice("Bearer ".length);
       const user = await deps.tokens.verify(token);
 
       if (!user) res.status(401).send({ error: "Missing token" });
