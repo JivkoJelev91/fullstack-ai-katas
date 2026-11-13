@@ -18,7 +18,7 @@ Mark a task done by changing ⬜ to ✅.
 | ✅ | EXPRESS-008 | Paginate Products | Level 1 | [task8.md](src/express/task8/task8.md) | `npm run test:express:8` |
 | ✅ | EXPRESS-009 | Products from an Async Catalog | Level 1 | [task9.md](src/express/task9/task9.md) | `npm run test:express:9` |
 | ✅ | EXPRESS-010 | Login with a Bearer Token | Level 1 | [task10.md](src/express/task10/task10.md) | `npm run test:express:10` |
-| ⬜ | EXPRESS-011 | Create and List My Notes | Level 1 | [task11.md](src/express/task11/task11.md) | `npm run test:express:11` |
+| ✅ | EXPRESS-011 | Create and List My Notes | Level 1 | [task11.md](src/express/task11/task11.md) | `npm run test:express:11` |
 | ⬜ | EXPRESS-012 | Who Can See a Note | Level 1 | [task12.md](src/express/task12/task12.md) | `npm run test:express:12` |
 | ⬜ | EXPRESS-013 | Edit and Delete Notes | Level 2 | [task13.md](src/express/task13/task13.md) | `npm run test:express:13` |
 | ⬜ | EXPRESS-014 | Admin Stats | Level 1 | [task14.md](src/express/task14/task14.md) | `npm run test:express:14` |

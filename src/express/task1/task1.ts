@@ -51,7 +51,6 @@ export function createApp(): Express {
   app.post("/tasks", (req, res) => {
     
     if (req.body) {
-      
       const id = randomUUID();              // unique id, e.g. "3f2a9c1e-..."
       const now = new Date().toISOString(); // e.g. "2026-03-01T10:00:00.000Z"
       try {
@@ -66,12 +65,8 @@ export function createApp(): Express {
            createdAt: now,
            updatedAt: now,
         };
-        if(task){
-          tasks.set(id, task);
-        }
-
+        if(task) tasks.set(id, task);
         return res.status(201).send(task)
-
       } catch (error) {
         if (error instanceof z.ZodError) {
           return res

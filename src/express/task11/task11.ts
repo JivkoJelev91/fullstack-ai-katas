@@ -7,6 +7,8 @@
  * Keep the exported names and the createApp signature unchanged; the tests depend on them.
  */
 import express, { type Express } from "express";
+import { randomUUID } from "node:crypto";
+import z from "zod";
 
 export type Role = "member" | "admin";
 
@@ -28,6 +30,13 @@ export interface Note {
   /** ISO 8601 timestamp */
   updatedAt: string;
 }
+
+const NoteSchema = z.object({
+  title: z.string().trim().min(1).max(200),
+  body: z.string().max(10000),
+  visibility: z.enum(["private" , "team"]).default('private'),
+});
+
 
 /** The logged-in users, by token. */
 export const USERS: Record<string, AuthUser> = {
@@ -57,15 +66,43 @@ export function createApp(initialNotes: Note[] = []): Express {
     next();
   });
 
-  app.post("/notes", (_req, _res) => {
+  app.post("/notes", (req, res) => {
     // Use these when you create a note:
-    //   id:  randomUUID() from "node:crypto"
-    //   now: new Date().toISOString()
-    throw new Error("Not implemented: POST /notes");
+    const user = res.locals.user;
+    const noteid = randomUUID(); // unique id, e.g. "3f2a9c1e-..."
+    const now = new Date().toISOString(); // e.g. "2026-03-01T10:00:00.000Z"
+
+    try {
+      req.body = NoteSchema.parse(req.body);
+      const title = req.body.title as string;
+      const body = req.body.body as string;
+      const visibility = req.body.visibility as Visibility;
+      const note: Note = {
+        id: noteid,
+        ownerId: user.id,
+        title,
+        body,
+        visibility,
+        createdAt: now,
+        updatedAt: now,
+      };
+      notes.push(note);
+      return res.status(201).send(note);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res
+          .status(400)
+          .send({ error: error.issues[0]?.message ?? "Invalid input" });
+      }
+    }
   });
 
-  app.get("/notes", (_req, _res) => {
-    throw new Error("Not implemented: GET /notes");
+  app.get("/notes", (_req, res) => {
+    const user = res.locals.user;
+    const filteredNotes = notes.filter((note) => note.ownerId === user.id);
+    res.send({
+      data: filteredNotes,
+    });
   });
 
   return app;
